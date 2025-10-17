@@ -18,12 +18,13 @@ void main() {
     mockBreedsRepo = MockBreedsRepo();
     getBreedsUseCase = GetBreedsUseCase(mockBreedsRepo);
   });
-  final tBreeds = BreedsEntity(
+  final tBreed = BreedEntity(
     breadsName: 'Test',
-    wigipidiaUrl: 'test',
+    wikipidiaUrl: 'test',
     refImageId: 'test',
     description: 'test',
   );
+  final tBreeds = BreedsEntity(breeds: [tBreed, tBreed]);
   final tBreedsList = [tBreeds, tBreeds];
   final int tPage = 1;
   final int tLimit = 10;
