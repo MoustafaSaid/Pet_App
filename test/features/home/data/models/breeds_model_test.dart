@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pet_app/features/home/data/models/breeds_model.dart';
@@ -37,9 +38,12 @@ void main() {
           json.decode(fixture('breeds.json')) as List<dynamic>;
 
       final result = BreedsModel.fromJsonList(jsonList);
-
-      expect(result.breeds.first.breadsName, equals('Abyssinian'));
-      expect(result.breeds.length, greaterThan(1));
+      //comment when matching the result with the tBreedsModel i have to take in my account the data has
+      //
+      // to be the same value so if it has 2 items the json has to have 2 items if the name == text thejson also has name ==test
+      // expect(result.breeds.first.breadsName, equals('Abyssinian'));
+      // expect(result.breeds.length, greaterThan(1));
+      expect(result, tBreedsModel);
     });
   });
 }
