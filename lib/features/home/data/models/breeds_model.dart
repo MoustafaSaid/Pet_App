@@ -58,6 +58,9 @@ class BreedsModel extends BreedsEntity {
     );
   }
 
+  factory BreedsModel.fromJson(Map<String, dynamic> json) =>
+      _$BreedsModelFromJson(json);
+
   Map<String, dynamic> toJson() => _$BreedsModelToJson(this);
 }
 

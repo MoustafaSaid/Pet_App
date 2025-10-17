@@ -25,20 +25,19 @@ void main() {
     description: 'test',
   );
   final tBreeds = BreedsEntity(breeds: [tBreed, tBreed]);
-  final tBreedsList = [tBreeds, tBreeds];
   final int tPage = 1;
   final int tLimit = 10;
   test('should get breeds from repo', () async {
     //arrange
     when(
       mockBreedsRepo.getBreeds(page: 1, limit: 10),
-    ).thenAnswer((_) async => Right(tBreedsList));
+    ).thenAnswer((_) async => Right(tBreeds));
 
     //act
     final result = await getBreedsUseCase(Params(page: tPage, limit: tLimit));
 
     //assert
-    expect(result, Right(tBreedsList));
+    expect(result, Right(tBreeds));
     verify(mockBreedsRepo.getBreeds(page: tPage, limit: tLimit));
     verifyNoMoreInteractions(mockBreedsRepo);
   });

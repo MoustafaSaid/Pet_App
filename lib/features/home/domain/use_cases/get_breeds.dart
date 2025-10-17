@@ -5,11 +5,11 @@ import 'package:pet_app/core/usecases/usecase.dart';
 import 'package:pet_app/features/home/domain/entity/breeds_entity.dart';
 import 'package:pet_app/features/home/domain/repo/breeds_repo.dart';
 
-class GetBreedsUseCase implements BaseUseCase<List<BreedsEntity>, Params> {
+class GetBreedsUseCase implements BaseUseCase<BreedsEntity, Params> {
   GetBreedsUseCase(this.repo);
   final BreedsRepo repo;
   @override
-  Future<Either<Failure, List<BreedsEntity>>> call(Params params) async =>
+  Future<Either<Failure, BreedsEntity>> call(Params params) async =>
       await repo.getBreeds(page: params.page, limit: params.limit);
 }
 
