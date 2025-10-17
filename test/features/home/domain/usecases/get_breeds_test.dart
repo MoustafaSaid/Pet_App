@@ -34,7 +34,7 @@ void main() {
     ).thenAnswer((_) async => Right(tBreedsList));
 
     //act
-    final result = await getBreedsUseCase(page: tPage, limit: tLimit);
+    final result = await getBreedsUseCase(Params(page: tPage, limit: tLimit));
 
     //assert
     expect(result, Right(tBreedsList));

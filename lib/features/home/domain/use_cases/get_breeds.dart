@@ -1,13 +1,23 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:pet_app/core/error/failures.dart';
+import 'package:pet_app/core/usecases/usecase.dart';
 import 'package:pet_app/features/home/domain/entity/breeds_entity.dart';
 import 'package:pet_app/features/home/domain/repo/breeds_repo.dart';
 
-class GetBreedsUseCase {
+class GetBreedsUseCase implements BaseUseCase<List<BreedsEntity>, Params> {
   GetBreedsUseCase(this.repo);
   final BreedsRepo repo;
-  Future<Either<Failure, List<BreedsEntity>>> call({
-    required int page,
-    required int limit,
-  }) async => await repo.getBreeds(page: page, limit: limit);
+  @override
+  Future<Either<Failure, List<BreedsEntity>>> call(Params params) async =>
+      await repo.getBreeds(page: params.page, limit: params.limit);
+}
+
+class Params extends Equatable {
+  final int page;
+  final int limit;
+  const Params({required this.page, required this.limit});
+
+  @override
+  List<Object?> get props => [page, limit];
 }
