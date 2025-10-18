@@ -40,15 +40,17 @@ class MockBreedsRepo extends _i1.Mock implements _i3.BreedsRepo {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.BreedsEntity>> getBreeds({
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.BreedEntity>>> getBreeds({
     required int? page,
     required int? limit,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#getBreeds, [], {#page: page, #limit: limit}),
             returnValue:
-                _i4.Future<_i2.Either<_i5.Failure, _i6.BreedsEntity>>.value(
-                  _FakeEither_0<_i5.Failure, _i6.BreedsEntity>(
+                _i4.Future<
+                  _i2.Either<_i5.Failure, List<_i6.BreedEntity>>
+                >.value(
+                  _FakeEither_0<_i5.Failure, List<_i6.BreedEntity>>(
                     this,
                     Invocation.method(#getBreeds, [], {
                       #page: page,
@@ -57,5 +59,5 @@ class MockBreedsRepo extends _i1.Mock implements _i3.BreedsRepo {
                   ),
                 ),
           )
-          as _i4.Future<_i2.Either<_i5.Failure, _i6.BreedsEntity>>);
+          as _i4.Future<_i2.Either<_i5.Failure, List<_i6.BreedEntity>>>);
 }

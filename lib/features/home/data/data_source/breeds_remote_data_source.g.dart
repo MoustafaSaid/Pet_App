@@ -22,12 +22,15 @@ class _BreedsRemoteDataSource implements BreedsRemoteDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<BreedsModel> getBreeds({required int page, required int limit}) async {
+  Future<List<BreedModel>> getBreeds({
+    required int page,
+    required int limit,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'page': page, r'limit': limit};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<BreedsModel>(
+    final _options = _setStreamType<List<BreedModel>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -37,10 +40,12 @@ class _BreedsRemoteDataSource implements BreedsRemoteDataSource {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late BreedsModel _value;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<BreedModel> _value;
     try {
-      _value = BreedsModel.fromJson(_result.data!);
+      _value = _result.data!
+          .map((dynamic i) => BreedModel.fromJson(i as Map<String, dynamic>))
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

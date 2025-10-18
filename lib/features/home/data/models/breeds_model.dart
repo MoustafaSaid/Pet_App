@@ -45,7 +45,7 @@ import 'package:pet_app/features/home/domain/entity/breeds_entity.dart';
 
 part 'breeds_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class BreedsModel extends BreedsEntity {
   final List<BreedModel> breeds;
 

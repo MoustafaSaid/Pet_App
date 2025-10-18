@@ -7,7 +7,7 @@ part 'breeds_remote_data_source.g.dart';
 abstract class BreedsRemoteDataSource {
   factory BreedsRemoteDataSource(Dio dio) = _BreedsRemoteDataSource;
   @GET('breeds')
-  Future<BreedsModel> getBreeds({
+  Future<List<BreedModel>> getBreeds({
     @Query('page') required int page,
     @Query('limit') required int limit,
   });

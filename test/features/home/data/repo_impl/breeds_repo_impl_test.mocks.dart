@@ -3,15 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:pet_app/core/platform/network_info.dart' as _i3;
+import 'package:pet_app/core/network/network_info.dart' as _i2;
 import 'package:pet_app/features/home/data/data_source/breeds_locale_data_source.dart'
     as _i6;
 import 'package:pet_app/features/home/data/data_source/breeds_remote_data_source.dart'
-    as _i5;
-import 'package:pet_app/features/home/data/models/breeds_model.dart' as _i2;
+    as _i4;
+import 'package:pet_app/features/home/data/models/breeds_model.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -28,52 +28,44 @@ import 'package:pet_app/features/home/data/models/breeds_model.dart' as _i2;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeBreedsModel_0 extends _i1.SmartFake implements _i2.BreedsModel {
-  _FakeBreedsModel_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i3.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i2.NetworkInfo {
   MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<bool> get isConnected =>
+  _i3.Future<bool> get isConnected =>
       (super.noSuchMethod(
             Invocation.getter(#isConnected),
-            returnValue: _i4.Future<bool>.value(false),
+            returnValue: _i3.Future<bool>.value(false),
           )
-          as _i4.Future<bool>);
+          as _i3.Future<bool>);
 }
 
 /// A class which mocks [BreedsRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockBreedsRemoteDataSource extends _i1.Mock
-    implements _i5.BreedsRemoteDataSource {
+    implements _i4.BreedsRemoteDataSource {
   MockBreedsRemoteDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.BreedsModel> getBreeds({
+  _i3.Future<List<_i5.BreedModel>> getBreeds({
     required int? page,
     required int? limit,
   }) =>
       (super.noSuchMethod(
             Invocation.method(#getBreeds, [], {#page: page, #limit: limit}),
-            returnValue: _i4.Future<_i2.BreedsModel>.value(
-              _FakeBreedsModel_0(
-                this,
-                Invocation.method(#getBreeds, [], {#page: page, #limit: limit}),
-              ),
+            returnValue: _i3.Future<List<_i5.BreedModel>>.value(
+              <_i5.BreedModel>[],
             ),
           )
-          as _i4.Future<_i2.BreedsModel>);
+          as _i3.Future<List<_i5.BreedModel>>);
 }
 
 /// A class which mocks [BreedsLocalDataSource].
@@ -86,30 +78,30 @@ class MockBreedsLocalDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<void> cacheBreeds(_i2.BreedsModel? breeds) =>
+  _i3.Future<void> cacheBreeds(List<_i5.BreedModel>? breeds) =>
       (super.noSuchMethod(
             Invocation.method(#cacheBreeds, [breeds]),
-            returnValue: _i4.Future<void>.value(),
-            returnValueForMissingStub: _i4.Future<void>.value(),
+            returnValue: _i3.Future<void>.value(),
+            returnValueForMissingStub: _i3.Future<void>.value(),
           )
-          as _i4.Future<void>);
+          as _i3.Future<void>);
 
   @override
-  _i4.Future<_i2.BreedsModel> getCachedBreeds() =>
+  _i3.Future<List<_i5.BreedModel>> getCachedBreeds() =>
       (super.noSuchMethod(
             Invocation.method(#getCachedBreeds, []),
-            returnValue: _i4.Future<_i2.BreedsModel>.value(
-              _FakeBreedsModel_0(this, Invocation.method(#getCachedBreeds, [])),
+            returnValue: _i3.Future<List<_i5.BreedModel>>.value(
+              <_i5.BreedModel>[],
             ),
           )
-          as _i4.Future<_i2.BreedsModel>);
+          as _i3.Future<List<_i5.BreedModel>>);
 
   @override
-  _i4.Future<void> clearCache() =>
+  _i3.Future<void> clearCache() =>
       (super.noSuchMethod(
             Invocation.method(#clearCache, []),
-            returnValue: _i4.Future<void>.value(),
-            returnValueForMissingStub: _i4.Future<void>.value(),
+            returnValue: _i3.Future<void>.value(),
+            returnValueForMissingStub: _i3.Future<void>.value(),
           )
-          as _i4.Future<void>);
+          as _i3.Future<void>);
 }

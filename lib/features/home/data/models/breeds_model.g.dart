@@ -13,9 +13,7 @@ BreedsModel _$BreedsModelFromJson(Map<String, dynamic> json) => BreedsModel(
 );
 
 Map<String, dynamic> _$BreedsModelToJson(BreedsModel instance) =>
-    <String, dynamic>{
-      'breeds': instance.breeds.map((e) => e.toJson()).toList(),
-    };
+    <String, dynamic>{'breeds': instance.breeds};
 
 BreedModel _$BreedModelFromJson(Map<String, dynamic> json) => BreedModel(
   breadsName: json['name'] as String,

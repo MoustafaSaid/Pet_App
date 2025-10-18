@@ -24,7 +24,9 @@ void main() {
     refImageId: 'test',
     description: 'test',
   );
-  final tBreeds = BreedsEntity(breeds: [tBreed, tBreed]);
+  // final tBreeds = BreedsEntity(breeds: [tBreed, tBreed]);
+  final tBreeds = [tBreed, tBreed];
+
   final int tPage = 1;
   final int tLimit = 10;
   test('should get breeds from repo', () async {

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:pet_app/core/error/failures.dart';
-import 'package:pet_app/core/platform/network_info.dart';
+import 'package:pet_app/core/network/network_info.dart';
 import 'package:pet_app/features/home/data/data_source/breeds_locale_data_source.dart';
 import 'package:pet_app/features/home/data/data_source/breeds_remote_data_source.dart';
 import 'package:pet_app/features/home/data/models/breeds_model.dart';
@@ -18,7 +18,7 @@ class BreedsRepoImpl implements BreedsRepo {
     required this.networkInfo,
   });
   @override
-  Future<Either<Failure, BreedsEntity>> getBreeds({
+  Future<Either<Failure, List<BreedEntity>>> getBreeds({
     required int page,
     required int limit,
   }) async {

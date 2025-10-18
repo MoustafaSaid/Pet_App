@@ -2,8 +2,8 @@ import 'package:hive_ce/hive.dart';
 import 'package:pet_app/features/home/data/models/breeds_model.dart';
 
 abstract class BreedsLocalDataSource {
-  Future<void> cacheBreeds(BreedsModel breeds);
-  Future<BreedsModel> getCachedBreeds();
+  Future<void> cacheBreeds(List<BreedModel> breeds);
+  Future<List<BreedModel>> getCachedBreeds();
   Future<void> clearCache();
 }
 
@@ -15,7 +15,7 @@ class BreedsLocalDataSourceImpl implements BreedsLocalDataSource {
   BreedsLocalDataSourceImpl(this.hive);
 
   @override
-  Future<void> cacheBreeds(BreedsModel breeds) async {
+  Future<void> cacheBreeds(List<BreedModel> breeds) async {
     final box = await hive.openBox(kBreedsBox);
     // Store as list of JSON
     // final jsonList = breeds((breed) => breed.toJson()).toList();
@@ -23,13 +23,13 @@ class BreedsLocalDataSourceImpl implements BreedsLocalDataSource {
   }
 
   @override
-  Future<BreedsModel> getCachedBreeds() async {
+  Future<List<BreedModel>> getCachedBreeds() async {
     final box = await hive.openBox(kBreedsBox);
     final jsonList = box.get('breeds', defaultValue: []);
     if (jsonList == null || jsonList.isEmpty) {
-      return BreedsModel(breeds: []);
+      return [];
     }
-    return BreedsModel.fromJson(jsonList);
+    return jsonList;
   }
 
   @override

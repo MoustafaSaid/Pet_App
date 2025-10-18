@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:pet_app/core/platform/network_info.dart';
+import 'package:pet_app/core/error/exceptions.dart';
+import 'package:pet_app/core/error/failures.dart';
+import 'package:pet_app/core/network/network_info.dart';
 import 'package:pet_app/features/home/data/data_source/breeds_locale_data_source.dart';
 import 'package:pet_app/features/home/data/data_source/breeds_remote_data_source.dart';
 import 'package:pet_app/features/home/data/models/breeds_model.dart';
@@ -41,7 +42,7 @@ void main() {
   });
 
   group("getBreeds", () {
-    final tBreeds = BreedsModel(breeds: []);
+    final tBreeds = List<BreedModel>.empty();
     test("should check if device is online", () async {
       // arrange
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -79,6 +80,22 @@ void main() {
         verify(mockRemoteDataSource.getBreeds(page: 1, limit: 10));
         verify(mockLocalDataSource.cacheBreeds(tBreeds));
       });
+
+      test(
+        "should return server failure when the call to remote data source is unsuccessful",
+        () async {
+          // arrange
+          when(
+            mockRemoteDataSource.getBreeds(page: 1, limit: 10),
+          ).thenThrow(ServerException());
+          // act
+          final result = await repo.getBreeds(page: 1, limit: 10);
+          // assert
+          verify(mockRemoteDataSource.getBreeds(page: 1, limit: 10));
+          verifyZeroInteractions(mockLocalDataSource);
+          expect(result, Left(ServerFailure()));
+        },
+      );
     });
 
     group("device is offline", () {
@@ -86,16 +103,31 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
       });
 
-      test("should return local data when device is offline", () async {
+      test(
+        "should return local data when device is offline with last cached data",
+        () async {
+          // arrange
+          when(
+            mockLocalDataSource.getCachedBreeds(),
+          ).thenAnswer((_) async => tBreeds);
+          // act
+          final result = await repo.getBreeds(page: 1, limit: 10);
+          // assert
+          verifyZeroInteractions(mockRemoteDataSource);
+          verify(mockLocalDataSource.getCachedBreeds());
+          expect(result, Right(tBreeds));
+        },
+      );
+
+      test("should return CacheFailure when there is no cached data", () async {
         // arrange
-        when(
-          mockLocalDataSource.getCachedBreeds(),
-        ).thenAnswer((_) async => tBreeds);
+        when(mockLocalDataSource.getCachedBreeds()).thenThrow(CacheException());
         // act
         final result = await repo.getBreeds(page: 1, limit: 10);
         // assert
+        verifyZeroInteractions(mockRemoteDataSource);
         verify(mockLocalDataSource.getCachedBreeds());
-        expect(result, Right(tBreeds));
+        expect(result, Left(CacheFailure()));
       });
     });
   });
