@@ -30,7 +30,7 @@ class BreedsRepoImpl implements BreedsRepo {
           page: page,
           limit: limit,
         );
-        await localDataSource.cacheBreeds(remoteBreeds);
+        // await localDataSource.cacheBreeds(remoteBreeds);
         return Right(remoteBreeds);
       } catch (e) {
         return Left(ServerFailure());
